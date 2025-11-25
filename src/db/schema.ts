@@ -15,6 +15,7 @@ export const promos = pgTable("promos", {
 export const projects = pgTable("projects",{
     id: serial("id").primaryKey(),
     title: text("title").notNull(),
+    slug: text("slug").notNull().unique(), 
     urlGitHub: text("url_github").notNull(),
     urlDemo:text("url_demo"),
     urlImage:text("url_image"),

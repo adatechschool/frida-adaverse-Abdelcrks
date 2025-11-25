@@ -18,6 +18,7 @@ async function main() {
 
     await db.insert(projects).values({
         title: "Quizz Capitales",
+        slug: "frida-quizz-capitales",
         urlGitHub: "https://github.com/Abdelcrks/Quizz-Capitale",
         urlDemo: "https://quizz-capitales-demo.vercel.app",
         urlImage: "/projects/frida/quizz/quizz-abdel.png",
