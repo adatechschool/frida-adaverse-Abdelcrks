@@ -1,15 +1,17 @@
 
-interface categories {
+interface Category {
     id: number | null,
     name: string
 }
 
-interface projects {
+interface Project {
     id: number | null,
+    categoryId: number | null,
     title: string,
     urlGitHub: string,
     urlDemo: string,
-    published_at: string,
+    urlImage: string,
+    publishedAt: string,
 }
 
 
@@ -19,9 +21,6 @@ interface AllCategoriesProps {
 }
 
 export const AllCategories = ({categories, projects}:AllCategoriesProps) => {
-
-    
-
     return (
         <div className="space-y-8">
             {categories.map((category) => {
