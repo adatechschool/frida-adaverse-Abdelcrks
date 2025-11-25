@@ -1,9 +1,11 @@
+import { ProjectCard } from "./ProjectCard";
+
 interface Category {
     id: number;
     name: string;
   }
   
-  interface Project {
+interface Project {
     id: number;
     title: string;
     urlGitHub: string;
@@ -31,18 +33,19 @@ export const AllCategories = ({categories, projects}:AllCategoriesProps) => {
 
                 return (
                     <section key={category.id} className="py-10">
-                        <h2 className="text-2xl font-semibold">{category.name}</h2>
+                        <h2 className="text-2xl font-semibold">{category.name} ({})</h2>
 
-                        <div className="bg-blue-500 p-10">
+                        <div className="mt-4">
                             {projectsOfCategory.map((project) => (
                                 <div key={project.id}>
-                                    <h3>{project.title}</h3>
+                                    {/* <h3>{project.title}</h3>
                                     <img className="w-xs"
                                     src={project.urlImage}
                                     />
                                     <p >{project.urlGitHub}</p>
                                     <p>{project.urlDemo}</p>
-                                    <p>{project.publishedAt}</p>
+                                    <p>{project.publishedAt}</p> */}
+                                    <ProjectCard project={project}/>
                                 </div>
                             ))}
                         
