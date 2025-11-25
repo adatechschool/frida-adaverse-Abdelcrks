@@ -1,24 +1,25 @@
-
 interface Category {
-    id: number | null,
-    name: string
-}
-
-interface Project {
-    id: number | null,
-    categoryId: number | null,
-    title: string,
-    urlGitHub: string,
-    urlDemo: string,
-    urlImage: string,
-    publishedAt: string,
-}
-
-
-interface AllCategoriesProps {
+    id: number;
+    name: string;
+  }
+  
+  interface Project {
+    id: number;
+    title: string;
+    urlGitHub: string;
+    urlDemo: string | null;
+    urlImage: string | null;
+    categoryId: number | null;
+    promoId: number | null;
+    createdAt: string;
+    publishedAt: string | null;
+  }
+  
+  export interface AllCategoriesProps {
     categories: Category[];
     projects: Project[];
-}
+  }
+  
 
 export const AllCategories = ({categories, projects}:AllCategoriesProps) => {
     return (
