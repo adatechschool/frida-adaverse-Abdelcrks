@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 interface projectCardProps {
-    project:{
         id: number;
         title: string;
         urlGitHub: string;
@@ -11,13 +10,12 @@ interface projectCardProps {
         promoId: number | null;
         createdAt: string;
         publishedAt: string | null;
-        promoName: string
-    }
+        // promoName: string
 }
 
-export const ProjectCard = ({project}:projectCardProps) => {
+export const ProjectCard = ({project}:{project:projectCardProps}) => {
 
-    const image = project.urlImage
+     const image = project.urlImage
 
     return (
         <Link href={``} className="">
