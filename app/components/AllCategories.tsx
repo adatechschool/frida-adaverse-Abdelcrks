@@ -35,10 +35,10 @@ export const AllCategories = ({categories, projects}:AllCategoriesProps) => {
                 )
 
                 return (
-                    <section key={category.id} className="p-10">
+                    <section key={category.id} className="mt-10">
                         <h2 className="text-2xl font-semibold">{category.name} ({})</h2>
 
-                        <div className="mt-4 p-10  grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <div className="mt-4 p-10  grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-15">
                             {projectsOfCategory.map((project) => (
                                 <div key={project.id}>
                                     {/* <h3>{project.title}</hb 3>
