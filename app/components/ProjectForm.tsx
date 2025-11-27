@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-
+import { createProject } from "@/src/db/action";
 
 
 
@@ -17,17 +17,26 @@ export const ProjectForm = ({onClose}: {onClose :() => void}) => {
 
 
     const isFormValid = 
-    formProject.title.trim() &&
-    formProject.github.trim() &&
-    formProject.promo.trim() &&
-    formProject.theme.trim() 
+    formProject.title.trim() !== "" && 
+    formProject.github.trim() !== "" && 
+    formProject.promo.trim() !== "" && 
+    formProject.theme.trim() !== ""  
     
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log("Données prêtes", formProject)
-
+    const handleAction = async (formData: FormData) => {
+        if(!isFormValid)
+            return
+        await createProject(formData)
+        onClose
     }
+
+    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault()
+    //     console.log("Données prêtes", formProject)
+
+
+    //     onClose()
+    // }
 
 
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -53,7 +62,7 @@ export const ProjectForm = ({onClose}: {onClose :() => void}) => {
 
     return (
         <div className="flex justify-center">
-            <form action="" onSubmit={handleSubmit}
+            <form action={handleAction}
             className="relative mt-10 p-10 w-[450px] bg-white text-black flex flex-col items-center gap-10 rounded-2xl"
             >
                 <button className="absolute left-4 top-4 text-red-600 text-xl cursor-pointer"
@@ -92,8 +101,9 @@ export const ProjectForm = ({onClose}: {onClose :() => void}) => {
                 </select>
 
                 <button  type="submit" disabled={!isFormValid}
-                className={`p-3.5 text-white rounded-full
-                ${isFormValid ? "bg-orange-500 cursor-pointer" : "bg-gray-400 cursor-not-allowed"}`}>
+                className={`p-3.5 text-white rounded-full ${
+                    isFormValid ? "bg-orange-500 cursor-pointer" : "bg-gray-400 cursor-not-allowed"
+                  }`}>
                     Envoyer</button>
             </form>
         </div>
