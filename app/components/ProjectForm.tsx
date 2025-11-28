@@ -7,6 +7,7 @@ import { createProject } from "@/src/db/action";
 
 export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
     // const [error, setError] = useState("")
+    const [formError, setFormError] = useState<string | null>(null);
     const [formProject, setFormProject] = useState({
         title: "",
         github: "",
@@ -23,12 +24,20 @@ export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
         formProject.theme.trim() !== ""
 
 
-    const handleAction = async (formData: FormData) => {
-        if (!isFormValid)
-            return
-        await createProject(formData)
-        onClose
-    }
+        const handleAction = async (formData: FormData) => {
+            if (!isFormValid) return;
+          
+            const result = await createProject(formData);
+          
+            if (!result.success) {
+              setFormError(result.error);
+              return;
+            }
+          
+            setFormError(null);
+            onClose();
+          };
+          
 
     // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //     e.preventDefault()
@@ -141,6 +150,7 @@ export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
                         ${isFormValid ? "bg-orange-500 hover:bg-orange-600": "bg-gray-400 cursor-not-allowed"}`}>
                     Envoyer
                 </button>
+                {formError && (<p className="mt-2 text-sm text-red-600 text-center">{formError}</p>)}
             </form>
         </div>
     );
