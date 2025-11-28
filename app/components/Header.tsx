@@ -3,14 +3,16 @@ import Link from "next/link"
 import { useState } from "react";
 import { ProjectForm } from "./ProjectForm";
 
+type HeaderProps = {
+    onClose: () => void
+}
 
-
-export const Header = ({onClose}) => {
+export const Header = () => {
     const [showForm, setShowForm] = useState(false);
 
     return (
         <div>
-            <header className="mb-6 flex items-center justify-between mt-3">
+            <header className="mb-6 mt-3  flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
                 <Link href={"/"} className="text-4xl font-semibold text-white">ada<span className="text-orange-300">VERSE</span></Link>
 
                 <div className="flex items-center gap-8">
@@ -25,7 +27,7 @@ export const Header = ({onClose}) => {
                 </div>
             </header>
             {showForm && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
                 <ProjectForm onClose={() => setShowForm(false)} />
                 </div>
             )}
