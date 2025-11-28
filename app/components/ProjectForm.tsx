@@ -62,13 +62,13 @@ export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
 
     return (
         <div className="flex justify-center px-4">
-            <form
+            <form 
                 action={handleAction}
                 className="
               relative 
-              mt-10 
+              mt-10
               w-full max-w-md 
-              p-6 md:p-10 
+              p-15 md:p-20 
               bg-white text-black 
               flex flex-col items-center gap-6 
               rounded-2xl shadow-xl
