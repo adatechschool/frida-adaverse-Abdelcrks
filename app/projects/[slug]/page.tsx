@@ -7,7 +7,6 @@ export default async function ProjectPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  // Next 16 → params est une Promise, on le "déballe"
   const { slug } = await params;
 
   const [project] = await db
@@ -23,7 +22,7 @@ export default async function ProjectPage({
     );
   }
 
-  console.log("Slug parameter:", slug);
+  console.log("Slug", slug);
 
 
 
