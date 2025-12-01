@@ -68,7 +68,7 @@ export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
 
     //     // setError("")
     // }
-
+    // p-15 md:p-20
     return (
         <div className="flex justify-center px-4">
             <form 
@@ -77,7 +77,7 @@ export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
               relative 
               mt-10
               w-full max-w-md 
-              p-15 md:p-20 
+              lg:p-20 sm: p-12 md:15
               bg-white text-black 
               flex flex-col items-center gap-6 
               rounded-2xl shadow-xl
@@ -97,6 +97,9 @@ export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
 
                 <div className="w-full flex flex-col gap-1">
                     <label htmlFor="github">Lien Github <span className="text-red-500">*</span></label>
+                    <p className="text-zinc-500 sm: text-[7px]    sm:text-[10px]  text-xs">
+                    💡 Astuce : Pense à ajouter un fichier thumbnail.png à la racine de ton dépôt GitHub.
+                    Il sera automatiquement utilisé comme image d’aperçu du projet.</p>
                     <input type="url" id="github" name="github" placeholder="www.github.com" required
                         className="w-full border border-gray-300 rounded-lg px-4 py-2"
                         value={formProject.github}
