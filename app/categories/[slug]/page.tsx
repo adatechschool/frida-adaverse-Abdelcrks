@@ -20,7 +20,7 @@ export default async function CategoriePage ({
     if(!categorie) {
         return (
             <main className="min-h-screen flex items-center justify-center">
-                <p className="text-lg">Catégorie introuvable</p>
+                <p className="text-lg">Catégorie introuvable !</p>
             </main>
         )
     }

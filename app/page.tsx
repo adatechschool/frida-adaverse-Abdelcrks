@@ -29,14 +29,7 @@ export default async function ProjectsPage() {
 
   return (
 
-    // <main>
-    //   {allProjects.map((projects)=>(
-    //     <div key={projects.id}>
-    //       <h2>{projects.title}</h2>
-    //       {/* <img src={projects.urlImage}/> */}
-    //     </div>
-    //   ))}
-    // </main>
+
     <main>
       <AllCategories
         categories={allCategories}
