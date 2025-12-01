@@ -87,7 +87,7 @@ export const Header = ({ categories }: { categories: Category[] }) => {
       </div>
 
       <button
-        className="bg-orange-500 px-5 py-2.5 cursor-pointer text-sm font-medium text-white rounded-full hover:bg-orange-400 transition"
+        className="bg-black px-5 py-2.5 cursor-pointer text-sm font-medium text-white rounded-full hover:bg-[linear-gradient(135deg,#6A00FF_0%,#B245FC_40%,#00A8FF_100%)] dark:bg-white dark:text-black transition"
         onClick={() => setShowForm((show) => !show)}
       >
         PUBLIER UN PROJET
@@ -95,12 +95,10 @@ export const Header = ({ categories }: { categories: Category[] }) => {
     </div>
   </div>
 </header>
-
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
           <ProjectForm onClose={() => setShowForm(false)} />
         </div>
-
       )}
     </div>
 
