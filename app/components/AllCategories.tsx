@@ -5,7 +5,7 @@ interface Category {
     name: string;
   }
   
-interface Project {
+ export interface ProjectWithPromo {
     id: number;
     title: string;
     urlGitHub: string;
@@ -16,11 +16,12 @@ interface Project {
     createdAt: string;
     publishedAt: string | null;
     slug: string;
+    promoName : string,
   }
   
   export interface AllCategoriesProps {
     categories: Category[];
-    projects: Project[];
+    projects: ProjectWithPromo[];
   }
   
 
