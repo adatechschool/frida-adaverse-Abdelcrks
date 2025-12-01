@@ -29,7 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} bg-[linear-gradient(356deg,rgba(0,0,0,1)_0%,rgba(78,56,56,1)_100%,rgba(0,0,0,1)_100%)] text-white max-w-6xl mx-auto`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem >
         <Header categories={allCategories}/>
         <main className="min-h-screen w-full">
         <div className="w-full max-w-6xl mx-auto">
