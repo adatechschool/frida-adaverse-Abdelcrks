@@ -1,6 +1,6 @@
+import { AutoScrollRow } from "./AutoScrollRow";
 import { ProjectCard } from "./ProjectCard";
 import Link from "next/link";
-
 
 
 
@@ -77,28 +77,17 @@ export const AllCategories = ({ categories, projects }: AllCategoriesProps) => {
                                         Aucun projet pour cette catégorie pour l&apos;instant.
                                     </p>
                                 ) : (
-                                    <div
-                                        className="
-                                    flex gap-6 
-                                    overflow-x-auto 
-                                    scroll-smooth 
-                                    snap-x snap-mandatory 
-                                    pb-2
-                                    [&::-webkit-scrollbar]:h-1.5
-                                    [&::-webkit-scrollbar-thumb]:rounded-full 
-                                    [&::-webkit-scrollbar-thumb]:bg-zinc-700
-                                    [&::-webkit-scrollbar-track]:bg-zinc-900
-                                        "
-                                            >
-                                        {projectsOfCategory.map((project) => (
-                                            <div
-                                                key={project.id}
-                                                className="snap-start shrink-0 w-[320px] sm:w-[360px]"
-                                            >
-                                                <ProjectCard project={project} />
-                                            </div>
-                                        ))}
-                                    </div>
+                                    <AutoScrollRow>
+                                    {projectsOfCategory.map((project) => (
+                                      <div
+                                        key={project.id}
+                                        className="snap-start shrink-0 w-[260px] sm:w-[300px]"
+                                      >
+                                        <ProjectCard project={project} />
+                                      </div>
+                                    ))}
+                                  </AutoScrollRow>
+                              
                                 )}
                             </div>
                         </section>
