@@ -1,5 +1,5 @@
 import { db } from "@/src/db";
-import { projects } from "@/src/db/schema";
+import { projects, promos } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
 
 export default async function ProjectPage({
@@ -10,8 +10,21 @@ export default async function ProjectPage({
   const { slug } = await params;
 
   const [project] = await db
-    .select()
+    .select({
+      id:projects.id,
+      title:projects.title,
+      slug: projects.slug,
+      urlGitHub: projects.urlGitHub,
+      urlDemo: projects.urlDemo,
+      urlImage: projects.urlImage,
+      categoryId: projects.categoryId,
+      promoId: projects.promoId,
+      createdAt: projects.createdAt,
+      publishedAt: projects.publishedAt,
+      promoName: promos.name, 
+    })
     .from(projects)
+    .innerJoin(promos, eq(promos.id , projects.promoId))
     .where(eq(projects.slug, slug));
 
   if (!project) {
@@ -33,7 +46,12 @@ export default async function ProjectPage({
           <h1 className="text-6xl md:text-6xl font-semibold">
             {project.title}
           </h1>
-            <p className="text-sm text-zinc-400">Publié le {project.publishedAt}</p>
+            <span className="text-sm text-zinc-400">
+              Publié le {project.publishedAt}
+              <span className="ml-10 inline-flex items-center justify-center px-3 py-1 bg-orange-500 text-white text-xs font-semibold rounded-md">
+                 {project.promoName.toUpperCase()}
+              </span>
+            </span>
         </div>
         <section className="flex flex-wrap justify-center gap-8">
           <a
