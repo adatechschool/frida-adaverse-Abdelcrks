@@ -11,7 +11,7 @@ interface projectCardProps {
         createdAt: string;
         publishedAt: string | null;
         slug: string ;
-        // promoName: string
+        promoName: string
 }
 
 export const ProjectCard = ({project}:{project:projectCardProps}) => {
@@ -25,12 +25,12 @@ export const ProjectCard = ({project}:{project:projectCardProps}) => {
             // style={{minWidth: '600px', maxWidth: '1200px'}} 
           >
                
-                <div 
+                <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-600 ease-out group-hover:scale-120 "
                 style={{backgroundImage: `url(${image})`}}
-                
-                />
-               
+                >
+                <p className="absolute top-3 right-4 bg-orange-500 px-3 py-1 rounded">{project.promoName.toLocaleUpperCase()}</p>
+                </div>
                 <div 
                 className="absolute inset-0 bg-linear-to-t from-black/30 via-black/30"/>
             </article>
