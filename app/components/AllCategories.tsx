@@ -1,11 +1,15 @@
 import { ProjectCard } from "./ProjectCard";
+import Link from "next/link";
+
+
+
 
 interface Category {
     id: number;
     name: string;
-  }
-  
- export interface ProjectWithPromo {
+}
+
+export interface ProjectWithPromo {
     id: number;
     title: string;
     urlGitHub: string;
@@ -16,58 +20,91 @@ interface Category {
     createdAt: string;
     publishedAt: string | null;
     slug: string;
-    promoName : string,
-  }
-  
-  export interface AllCategoriesProps {
+    promoName: string,
+}
+
+export interface AllCategoriesProps {
     categories: Category[];
     projects: ProjectWithPromo[];
-  }
-  
-
-export const AllCategories = ({categories, projects}:AllCategoriesProps) => {
-    
+}
 
 
+export const AllCategories = ({ categories, projects }: AllCategoriesProps) => {
     return (
         <div className="py-10 w-full">
-            <div 
-            className="space-y-12"
-            > 
-            {categories.map((category) => {
-                
-                const projectsOfCategory = projects.filter(
-                    (project) => project.categoryId === category.id
-                )
-                return (
-                    <section key={category.id} className="px-4 sm:px-6 lg:px-8 mt-10">
-                        <h2 className="text-2xl font-semibold">{category.name} ({projectsOfCategory.length})</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
-                        {/* <div className="mt-4 p-10  grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-15"> */}
-                            {projectsOfCategory.map((project) => (
-                                <div key={project.id}>
-                                    {/* <h3>{project.title}</hb 3>
-                                    <img className="w-xs"
-                                    src={project.urlImage}
-                                    />
-                                    <p >{project.urlGitHub}</p>
-                                    <p>{project.urlDemo}</p>
-                                    <p>{project.publishedAt}</p> */}
-                                    <ProjectCard project={project} />
-                                </div>
-                            ))}
-                        
-                            {projectsOfCategory.length === 0 && (
-                                <p className="text-white/50">
-                                    Aucun projet pour cette catégorie pour l'instant
-                                </p>
-                            )}
+            <div className="space-y-10">
+                {categories.map((category) => {
+                    const projectsOfCategory = projects.filter(
+                        (project) => project.categoryId === category.id
+                    );
 
+                    return (
+                        <section key={category.id} className="px-4 sm:px-6 lg:px-8">
+                            <div className="mb-4 flex items-center gap-3">
+                                <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/40 bg-zinc-900/70 px-4 py-1">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+                                    <Link
+                                        href={`/categories/${category.name}`}
+                                        className="text-sm font-medium tracking-wide uppercase text-zinc-100 hover:text-violet-300 transition-colors"
+                                    >
+                                        {category.name}
+                                    </Link>
+                                    <span className="text-xs text-zinc-400">
+                                        {projectsOfCategory.length} projet
+                                        {projectsOfCategory.length > 1 && "s"}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* <div className="rounded-2xl border border-zinc-800/70 bg-zinc-950/80 px-4 py-5 sm:px-6 sm:py-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                      {projectsOfCategory.map((project) => (
+                        <div key={project.id}>
+                          <ProjectCard project={project} />
                         </div>
-                    </section>
-                )
-            })}
+                      ))}
+    
+                      {projectsOfCategory.length === 0 && (
+                        <p className="text-sm text-zinc-500">
+                          Aucun projet pour cette catégorie pour l'instant.
+                        </p>
+                      )}
+                    </div>
+                  </div> */}
+                            <div className="rounded-2xl border border-zinc-800/70 bg-zinc-950/80 px-4 py-5 sm:px-6 sm:py-6">
+                                {projectsOfCategory.length === 0 ? (
+                                    <p className="text-sm text-zinc-500">
+                                        Aucun projet pour cette catégorie pour l&apos;instant.
+                                    </p>
+                                ) : (
+                                    <div
+                                        className="
+                                    flex gap-6 
+                                    overflow-x-auto 
+                                    scroll-smooth 
+                                    snap-x snap-mandatory 
+                                    pb-2
+                                    [&::-webkit-scrollbar]:h-1.5
+                                    [&::-webkit-scrollbar-thumb]:rounded-full 
+                                    [&::-webkit-scrollbar-thumb]:bg-zinc-700
+                                    [&::-webkit-scrollbar-track]:bg-zinc-900
+                                        "
+                                            >
+                                        {projectsOfCategory.map((project) => (
+                                            <div
+                                                key={project.id}
+                                                className="snap-start shrink-0 w-[320px] sm:w-[360px]"
+                                            >
+                                                <ProjectCard project={project} />
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+                    );
+                })}
+            </div>
         </div>
-        </div>
-    )
+    );
 }
