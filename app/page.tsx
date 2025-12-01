@@ -13,7 +13,7 @@ export default async function ProjectsPage() {
       id: projects.id,
       title:projects.title,
       slug:projects.slug,
-      urlGithub:projects.urlGitHub,
+      urlGitHub:projects.urlGitHub,
       urlDemo:projects.urlDemo,
       urlImage:projects.urlImage,
       categoryId:projects.categoryId,
