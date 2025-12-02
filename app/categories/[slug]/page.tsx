@@ -49,7 +49,9 @@ export default async function CategoriePage ({
         <main className="py-10">
             <div className="max-w-6xl mx-auto px-4">
             <h1 className="text-3xl font-semibold mb-8">{categorie.name}</h1>
-            <div className="py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 
+            rounded-2xl border border-zinc-200 dark:border-zinc-800/70  bg-white/90 dark:bg-zinc-950/80 shadow-xl sm:px-6 sm:py-6
+            ">
             {projectsOfCategory.map((project) => (
                 <ProjectCard key={project.id} project={project}></ProjectCard>
             ))}
