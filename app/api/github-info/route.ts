@@ -8,8 +8,11 @@ export const GET = async (req: NextRequest) => {
         return Response.json ({error : "Mauvaise url"}, {status : 400})
     }
 
-    const parts = repoUrl.split("github.com/")[1]
+    const parts = repoUrl.split("github.com/")[1] // je recup la 2eme partie avec [1]
     const [user, repo] = parts.split("/")
 
-    return Response.json ({ user:user, repo:repo })
+    const gitHubResponse = await fetch (`https://api.github.com/repos/${user}/${repo}`)
+    const data = await gitHubResponse.json()
+
+    return Response.json (data)
 }
