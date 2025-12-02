@@ -14,13 +14,22 @@ export const GET = async (req: NextRequest) => {
     const gitHubResponse = await fetch (`https://api.github.com/repos/${user}/${repo}`)
     const data = await gitHubResponse.json()
 
-    const gitHubReadme = await fetch(`https://raw.githubusercontent.com/${user}/${repo}/main/README.md`)
+    // const gitHubReadme = await fetch(`https://raw.githubusercontent.com/${user}/${repo}/main/README.md`)
 
     let readmeText = null;
+    const possibleNames = ["README.md", "readme.md", "Readme.md", "README.MD"]
 
-    if (gitHubReadme.ok) {
-      readmeText = await gitHubReadme.text();   
+    for (const name of possibleNames){
+        const tryFetch = await fetch(`https://raw.githubusercontent.com/${user}/${repo}/main/${name}`);
+        if (tryFetch.ok) {
+            readmeText = await tryFetch.text();
+            break;
+          }
     }
+    
+    // if (gitHubReadme.ok) {
+    //   readmeText = await gitHubReadme.text();   
+    // }
 
     console.log({
         language: data.language,
