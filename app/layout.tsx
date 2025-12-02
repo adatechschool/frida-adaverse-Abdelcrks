@@ -4,6 +4,7 @@ import { Header } from "./components/Header";
 import { categories } from "@/src/db/schema";
 import { db } from "@/src/db";
 import { ThemeProvider } from "./components/theme-provider";
+import { createProject } from "@/src/db/action";
 
 
 export const poppins = Poppins({
@@ -30,7 +31,10 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} bg-white text-black max-w-full mx-auto   dark:bg-black dark:text-white`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem >
-        <Header categories={allCategories}/>
+        <Header 
+        categories={allCategories}
+        createProject={createProject}
+        />
         <main className="min-h-screen w-full">
         <div className="w-full max-w-6xl mx-auto">
           {children}

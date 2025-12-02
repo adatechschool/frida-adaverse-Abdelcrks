@@ -1,74 +1,45 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { createProject } from "@/src/db/action";
+import { useState } from "react";
 
+type ProjectFormProps = {
+  onClose: () => void;
+  createProject: (formData: FormData) => Promise<{ success: boolean; error?: string }>;
+};
 
+export const ProjectForm = ({ onClose, createProject }: ProjectFormProps) => {
+  const [formError, setFormError] = useState<string | null>(null);
+  const [formProject, setFormProject] = useState({
+    title: "",
+    github: "",
+    demo: "",
+    promo: "",
+    theme: "",
+  });
 
-export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
-    // const [error, setError] = useState("")
-    const [formError, setFormError] = useState<string | null>(null);
-    const [formProject, setFormProject] = useState({
-        title: "",
-        github: "",
-        demo: "",
-        promo: "",
-        theme: "",
-    });
+  const isFormValid =
+    formProject.title.trim() !== "" &&
+    formProject.github.trim() !== "" &&
+    formProject.promo.trim() !== "" &&
+    formProject.theme.trim() !== "";
 
+  const handleAction = async (formData: FormData) => {
+    console.log("createProject dans ProjectForm :", createProject);
+    if (!isFormValid) return;
 
-    const isFormValid =
-        formProject.title.trim() !== "" &&
-        formProject.github.trim() !== "" &&
-        formProject.promo.trim() !== "" &&
-        formProject.theme.trim() !== ""
+    const result = await createProject(formData);
 
+    if (!result.success) {
+      setFormError(result.error ?? "Une erreur est survenue.");
+      return;
+    }
 
-        const handleAction = async (formData: FormData) => {
-            if (!isFormValid) return;
+    setFormError(null);
+    onClose();
+  };
           
-            const result = await createProject(formData);
-          
-            if (!result.success) {
-              setFormError(result.error);
-              return;
-            }
-          
-            setFormError(null);
-            onClose();
-          };
-          
 
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault()
-    //     console.log("Données prêtes", formProject)
-
-
-    //     onClose()
-    // }
-
-
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault()
-
-    //     const form = e.currentTarget
-    //     const formData = new FormData(form)
-    //     const title = formData.get("title")
-    //     const github = formData.get("github")
-    //     const demo = formData.get("demo")
-    //     const promo = formData.get("promo")
-    //     const theme = formData.get("theme")
-
-    //     console.log({ title, github, demo, promo, theme });
-
-    //     // if (!title || !github  || !promo || !theme ){
-    //     //     setError("Tout les champs sont obligatoires")
-    //     //     return
-    //     // }
-
-    //     // setError("")
-    // }
-    // p-15 md:p-20
+ 
     return (
         <div className="flex justify-center px-4">
             <form 
@@ -77,12 +48,12 @@ export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
               relative 
               mt-10
               w-full max-w-md 
-              lg:p-20 sm: p-12 md:15
+              lg:p-20 p-12 md:15
               bg-white text-black 
               flex flex-col items-center gap-6 
               rounded-2xl shadow-xl
             ">
-                <button className="absolute left-4 top-4 text-red-600 text-xl cursor-pointer" onClick={onClose}>❌</button>
+                <button type="button" className="absolute left-4 top-4 text-red-600 text-xl cursor-pointer" onClick={onClose}>❌</button>
                 <h1 className="text-2xl font-semibold">Publier un projet</h1>
 
                 <div className="w-full flex flex-col gap-1">

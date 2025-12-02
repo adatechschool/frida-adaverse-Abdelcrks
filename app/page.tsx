@@ -8,6 +8,8 @@ import { Hero } from "./components/Hero";
 
 
 
+
+
 export default async function ProjectsPage() {
   const allCategories = await db.select().from(categories)
   const allProjects = await db

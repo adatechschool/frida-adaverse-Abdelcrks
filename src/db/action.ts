@@ -21,7 +21,6 @@ export async function createProject(formData: FormData): Promise<CreateProjectRe
     return { success: false, error: "Certains champs obligatoires sont manquants." };
   }
 
-  // Exemple : vérifier si le titre existe déjà
   const existing = await db
   .select()
   .from(projects)
