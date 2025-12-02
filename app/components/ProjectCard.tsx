@@ -20,6 +20,7 @@ export const ProjectCard = async ({project}:{project:projectCardProps}) => {
 
 
      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+     console.log("BASE URL ", baseUrl);
 
      const githubInfo = await fetch(`${baseUrl}/api/github-info?url=${project.urlGitHub}`,
        { next: { revalidate: 3600 } }
