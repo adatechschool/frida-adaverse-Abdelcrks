@@ -1,38 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 Adaverse
 
-## Getting Started
+Adaverse est une plateforme qui recense et met en valeur les projets réalisés par les apprenant·e·s d’Ada Tech School.
 
-First, run the development server:
+L’objectif : avoir **un endroit unique** pour découvrir les projets des promos (apps web, dataviz, intégrations d’API, outils internes…), filtrés par **type de projet Ada** (AdaQuiz, AdaCheckEvent, etc.) et par **promotion**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
+ ***  Site déployé sur Vercel : ***
+👉 https://adaverse-psi.vercel.app/ 
+## ✨ Fonctionnalités
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 👀 Côté utilisateur·rice
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Page d’accueil avec :
+  - un **hero** présentant la plateforme et le développeur
+  - un **switch dark / light mode**
+  - des **carrousels horizontaux** de projets, regroupés par **type de projet Ada**.
+- Chaque projet est affiché sous forme de **carte** :
+  - titre du projet
+  - promo associée
+  - date (création / publication)
+  - vignette du projet :
+    - `thumbnail.png` récupéré depuis le repo GitHub si disponible
+    - sinon une **image par défaut** “image non disponible”
+  - clic sur la carte → ouverture de la **page de détail** (TODO / à compléter selon avancement).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Page de détail d’un projet (en cours / à venir) :
+  - titre du projet
+  - promo
+  - catégorie (projet Ada : AdaQuiz, AdaCheckEvent, etc.)
+  - image principale
+  - dates
+  - liens GitHub + démo.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### 📝 Proposition de projet
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Bouton **« Proposer un projet »** dans le header.
+- Ouverture d’une **popup avec formulaire** :
+  - titre du projet (obligatoire)
+  - lien GitHub (obligatoire)
+  - lien vers la démo (obligatoire)
+  - promo concernée (liste déroulante)
+  - type de projet Ada / catégorie (liste déroulante).
+- Validation côté serveur :
+  - si un champ obligatoire manque → erreur, le projet n’est pas enregistré.
+- Enregistrement du projet en base via **Drizzle ORM** :
+  - génération d’un **slug** propre à partir du titre
+  - association à une promo et à un projet Ada
+  - `publishedAt` laissé vide par défaut → projet **non publié** tant qu’il n’est pas validé.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> 🧠 L’idée est que les projets puissent être proposés librement, mais qu’ils ne soient visibles publiquement qu’une fois **publiés**.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧱 Stack technique
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
+- **Framework fullstack** : [Next.js (App Router)](https://nextjs.org/)
+- **Langage** : [TypeScript](https://www.typescriptlang.org/)
+- **UI / CSS** : [Tailwind CSS](https://tailwindcss.com/)
+- **ORM** : [Drizzle ORM](https://orm.drizzle.team/)
+- **Base de données** : [Neon (PostgreSQL serverless)](https://neon.tech/)
+- **Déploiement** : [Vercel](https://vercel.com/) (prévu / en cours)
+
+---
+
+## 🗃️ Modélisation de la base de données
+
+La base de données suit l’énoncé officiel du projet Adaverse.
+
+### Table `ada_projects` (projets du programme Ada)
+
+Contient les différents **types de projets** du programme Ada (AdaQuiz, AdaCheckEvent, Adaopte, etc.).
+
+Champs typiques :
+
+- `id` – identifiant unique
+- `name` – nom du projet Ada (ex. `"AdaQuiz"`)
+- (optionnel) `description`, `stack`, `theme`, etc.
+
+### Table `promos` (promotions Ada)
+
+Contient les **promotions d’apprenant·e·s**.
+
+- `id` – identifiant unique
+- `name` – nom de la promo (ex. `"Frida"`)
+- `start_date` – date de début de la promo
+
+### Table `projects` (projets des apprenant·e·s)
+
+Représente les projets étudiants.
+
+- `id`
+- `title`
+- `slug`
+- `urlGitHub`
+- `urlDemo`
+- `urlImage` (vignette / thumbnail optionnelle)
+- `createdAt` – date de création (projet proposé)
+- `publishedAt` – date de publication (null = projet non publié)
+- `promoId` – clé étrangère vers `promos`
+- `categoryId` – clé étrangère vers `ada_projects`
+
 
