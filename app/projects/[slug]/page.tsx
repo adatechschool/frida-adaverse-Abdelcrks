@@ -1,6 +1,7 @@
 import { db } from "@/src/db";
-import { projects, promos } from "@/src/db/schema";
+import { categories, projects, promos } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
+import Link from "next/link";
 
 export default async function ProjectPage({
   params,
@@ -21,10 +22,12 @@ export default async function ProjectPage({
       promoId: projects.promoId,
       createdAt: projects.createdAt,
       publishedAt: projects.publishedAt,
-      promoName: promos.name, 
+      promoName: promos.name,
+      categoryName : categories.name,
     })
     .from(projects)
     .innerJoin(promos, eq(promos.id , projects.promoId))
+    .innerJoin(categories,eq(categories.id, projects.categoryId))
     .where(eq(projects.slug, slug));
 
   if (!project) {
@@ -47,6 +50,14 @@ export default async function ProjectPage({
   return (
     <main className="min-h-screen px-4 py-10">
       <div className="max-w-4xl mx-auto space-y-8">
+          <div className="mb-4">
+            <Link 
+            href={`/categories/${project.categoryName}`}
+            className="inline-flex items-center gap-2 text-sm "
+            >
+            <span className="text-black dark:text-white hover:text-zinc-100 dark:hover:text-zinc-600 transition">← Retour aux projets</span>
+            </Link>
+          </div>
         <div className="space-y-3 text-center">
           <h1 className="text-6xl md:text-6xl font-semibold">
             {project.title}
