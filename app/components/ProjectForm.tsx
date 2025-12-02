@@ -150,7 +150,7 @@ export const ProjectForm = ({ onClose }: { onClose: () => void }) => {
                 <button
                     type="submit" disabled={!isFormValid}
                     className={`w-full py-3 rounded-full text-white transition 
-                        ${isFormValid ? "bg-orange-500 hover:bg-orange-600": "bg-gray-400 cursor-not-allowed"}`}>
+                        ${isFormValid ? "bg-black hover:bg-[linear-gradient(135deg,#6A00FF_0%,#B245FC_40%,#00A8FF_100%)]": "bg-gray-400 cursor-not-allowed"}`}>
                     Envoyer
                 </button>
                 {formError && (<p className="mt-2 text-sm text-red-600 text-center">{formError}</p>)}
