@@ -28,9 +28,10 @@ body {
 } */
 
 /* === Carrousel auto-scroll === */
+/* === Carrousel auto-scroll === */
 
 .auto-scroll-container {
-  overflow: hidden;
+  overflow: hidden;          /* Desktop : on masque juste ce qui déborde */
 }
 
 .auto-scroll-track {
@@ -39,7 +40,7 @@ body {
   animation: scroll-horizontal 30s linear infinite;
 }
 
-/* Pause au survol */
+/* Pause au survol (desktop) */
 .auto-scroll-container:hover .auto-scroll-track {
   animation-play-state: paused;
 }
@@ -53,6 +54,7 @@ body {
   }
 }
 
+/* Si l'utilisateur préfère réduire les animations */
 @media (prefers-reduced-motion: reduce) {
   .auto-scroll-track {
     animation: none;
@@ -60,8 +62,13 @@ body {
   }
 }
 
-
+/* 🧁 Sur mobile : pas d'animation, mais scroll horizontal au doigt */
 @media (max-width: 640px) {
+  .auto-scroll-container {
+    overflow-x: auto;              /* au lieu de hidden */
+    -webkit-overflow-scrolling: touch; /* scroll fluide iOS */
+  }
+
   .auto-scroll-track {
     animation: none;
     transform: translateX(0);
