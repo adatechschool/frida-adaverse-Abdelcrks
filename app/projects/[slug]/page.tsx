@@ -30,7 +30,7 @@ export default async function ProjectPage({
   if (!project) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <p className="text-lg text-zinc-300">Projet introuvable.</p>
+        <p className="text-lg text-black dark:text-zinc-300">Projet introuvable.</p>
       </main>
     );
   }
@@ -46,9 +46,9 @@ export default async function ProjectPage({
           <h1 className="text-6xl md:text-6xl font-semibold">
             {project.title}
           </h1>
-            <span className="text-sm text-zinc-400">
+            <span className="lg:text-lg sm:text-sm   text-black dark:text-zinc-400">
               Publié le {project.publishedAt}
-              <span className="ml-10 inline-flex items-center justify-center px-3 py-1 bg-orange-500 text-white text-xs font-semibold rounded-md">
+              <span className="ml-10 inline-flex items-center justify-center px-3 py-1 bg-[linear-gradient(135deg,#6A00FF_0%,#B245FC_40%,#00A8FF_100%)] text-black dark:text-white lg:text-lg sm:text-sm font-semibold rounded-md">
                  {project.promoName.toUpperCase()}
               </span>
             </span>
@@ -58,13 +58,13 @@ export default async function ProjectPage({
             href={project.urlGitHub}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center bg-orange-400 px-5 py-2 text-sm font-medium text-white hover:bg-orange-700 transition"
+            className="inline-flex items-center bg-black dark:bg-white px-5 py-3 rounded text-sm font-medium text-white dark:text-black hover:bg-[linear-gradient(135deg,#6A00FF_0%,#B245FC_40%,#00A8FF_100%)] transition"
           >VOIR LE CODE
           </a>
 
           {project.urlDemo && (
             <a href={project.urlDemo}
-            className="inline-flex items-center bg-orange-400 px-5 py-2 text-sm font-medium text-white hover:bg-orange-700 transition"
+            className="inline-flex items-center bg-black dark:bg-white px-5 py-3 rounded text-sm font-medium text-white dark:text-black hover:bg-[linear-gradient(135deg,#6A00FF_0%,#B245FC_40%,#00A8FF_100%)] transition"
             >VOIR LA DÉMO
             </a>
           )}
