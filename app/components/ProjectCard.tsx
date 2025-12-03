@@ -1,5 +1,28 @@
 import Link from "next/link";
 
+async function getValidImage(url: string | null): Promise<string> {
+    if (!url) {
+      return "/images/default-thumbnail.png";
+    }
+  
+    try {
+      const res = await fetch(url, {
+        method: "HEAD",
+        cache: "no-store",
+      });
+  
+      if (!res.ok) {
+        return "/images/default-thumbnail.png";
+      }
+  
+      return url;
+    } catch (e) {
+      console.error("Erreur en vérifiant le thumbnail", e);
+      return "/images/default-thumbnail.png";
+    }
+  }
+
+
 interface projectCardProps {
         id: number;
         title: string;
@@ -16,7 +39,7 @@ interface projectCardProps {
 
 
 export const ProjectCard = async ({project}:{project:projectCardProps}) => {
-     const image = project.urlImage ?? "/images/default-thumbnail.png"
+      const image = await getValidImage(project.urlImage);
 
 
      const baseUrl = process.env.BASE_URL;
