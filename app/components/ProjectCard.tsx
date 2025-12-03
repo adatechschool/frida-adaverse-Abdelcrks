@@ -19,7 +19,7 @@ export const ProjectCard = async ({project}:{project:projectCardProps}) => {
      const image = project.urlImage ?? "/images/default-thumbnail.png"
 
 
-     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+     const baseUrl = process.env.BASE_URL;
      console.log("BASE URL ", baseUrl);
 
      const githubInfo = await fetch(`${baseUrl}/api/github-info?url=${project.urlGitHub}`,

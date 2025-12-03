@@ -40,7 +40,7 @@ export default async function ProjectPage({
 
   console.log("Slug", slug);
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = process.env.BASE_URL;
   const githubInfo = await fetch(
     `${baseUrl}/api/github-info?url=${project.urlGitHub}`,
     { next: { revalidate: 3600 } }
